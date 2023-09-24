@@ -9,4 +9,4 @@ a repo for my Try Hack Me learning with flags
 
 ## Rooms with no flags
 
-- Linux Backdoor
+- Linux Backdoors
