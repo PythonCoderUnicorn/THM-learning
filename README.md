@@ -4,6 +4,7 @@
 
 a repo for my Try Hack Me learning with flags
 
+- started learning on July 5, 2023
 
 ---
 
