@@ -1,3 +1,7 @@
+#Bash #FreeRoom 
+
+https://tryhackme.com/room/bashscripting
+
 Must have at the top of the `bash-tut.sh` file
 - `# !/bin/bash`
 
