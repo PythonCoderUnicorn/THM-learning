@@ -1,0 +1,83 @@
+
+# Intro 
+
+What is a Security Engineer?
+
+Keeping in view the above-mentioned need for security, organizations hire security engineers. In order to hire a security engineer, an organization perceives a security engineer as someone who:
+
+Owns the overall security of an organization. The main person responsible for securing an organization's digital assets.
+
+Ensures that the organization's cyber security risk is minimized at all times.
+Devises strategies and creates systems that minimize the risk posed by cyber security threats to an organization.
+
+Periodically conducts tests to ensure the robustness of the cyber security posture of an organization, identifies weak points, and prepares mitigations.
+
+Develops and implements secure network solutions.
+
+Architects and engineers trustworthy, reliable, and secure systems.
+Collaborates and coordinates with other teams to establish security protocols across the organization.
+
+
+Qualifications Required for a Security Engineer
+
+As you might have noticed, the security engineer role mentioned above is very broad and might require a whole department instead of a single person. This is because this role is defined loosely and varies from organization to organization. An engineer takes large problems, breaks them down into smaller chunks, and then solves them. Therefore a security engineer is someone that follows this process for security problems. Meaning that even though you might have a job description, each day might be quite different since you are faced with various problems. Overall, when hiring a security engineer, organizations look for the following basic requirements:
+
+
+Qualifications
+
+0-2 years of experience with IT administration, helpdesk, networks or security operations.
+Basic understanding of computer networks, operating systems, and programming.
+Basic understanding of security concepts such as Governance, Risk and Compliance (GRC).
+
+
+
+
+## core responsibilities
+
+Asset Management/Asset Inventory
+
+managing and maintaining an inventory of an organization's digital assets. 
+can only own an organization's security if they know what assets the organization has.
+ensure that this asset inventory is regularly maintained and updated 
+(asset name, type, IP addresses, physical location, place in the network, applications running)
+
+
+Security Policies
+
+helps the organization create security policies based on established Security Principles.
+
+Secure by Design
+the most Return on Investment (ROI) if it follows a secure-by-design philosophy.
+
+security engineer takes steps to implement a Secure Network Architecture
+organization's Windows, Linux, and Active Directory are hardened, follows secure SDL
+
+Security Assessment and Assurance
+
+regular security assessments, audits, and red-teaming and purple-teaming exercises to continuously improve the security posture
+
+Request for Quotations (RFQs) for external parties to perform these activities, and helping prioritize and implement the findings from them.
+
+
+
+https://medium.com/@tr1n1ty8/tryhackme-security-engineer-intro-writeup-b490e825c023
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

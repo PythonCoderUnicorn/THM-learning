@@ -1,0 +1,109 @@
+
+# vulnerabilities 101
+
+
+A vulnerability in cybersecurity is defined as a weakness or flaw in the design, implementation or behaviours of a system or application
+
+An attacker can exploit these weaknesses to gain access to unauthorised information or perform unauthorised actions
+
+
+Operating System
+These types of vulnerabilities are found within Operating Systems (OSs) and often result in privilege escalation.
+
+(Mis)Configuration-based
+These types of vulnerability stem from an incorrectly configured application or service. For example, a website exposing customer details.
+
+Weak or Default Credentials
+
+Application Logic
+These vulnerabilities are a result of poorly designed applications. 
+
+Human Factor
+Human-Factor vulnerabilities are vulnerabilities that leverage human behaviour. (phishing)
+
+
+
+
+## scoring vulnerabilities
+
+Vulnerability management is the process of evaluating, categorising and ultimately remediating threats (vulnerabilities) faced by an organisation.
+
+After all, only approximately 2% of vulnerabilities only ever end up being exploited (Kenna security., 2020).
+
+This is where vulnerability scoring comes into play. Vulnerability scoring serves a vital role in vulnerability management and is used to determine the potential risk and impact a vulnerability may have on a network or computer system
+
+
+Common Vulnerability Scoring System (or CVSS) is a very popular framework for vulnerability scoring
+
+1. how easy is it to exploit?
+2. do exploits exist for this?
+3. how does this vulnerability interfere with CIA triad?
+
+- Common Vulnerability Scoring System Calculator : https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator
+
+Common Vulnerability Scoring System
+Rating      Score
+None	      0
+Low	        0.1 - 3.9
+Medium	    4.0 - 6.9
+High	      7.0 - 8.9
+Critical	  9.0 - 10.0
+
+
+Vulnerability Priority Rating (VPR)
+ no risk is considered regarding a vulnerability if that vulnerability does not apply to the organisation (i.e. they do not use the software that is vulnerable)
+
+Rating    Score
+Low	      0.0 - 3.9
+Medium	  4.0 - 6.9
+High	    7.0 - 8.9
+Critical	9.0 - 10.0
+
+
+
+
+
+
+## Vulnerability databases
+
+- https://nvd.nist.gov/vuln/full-listing
+- http://exploit-db.com/
+
+The National Vulnerability Database is a website that lists all publically categorised vulnerabilities. In cybersecurity, vulnerabilities are classified under “Common Vulnerabilities and Exposures” (Or CVE for short).
+
+CVE-YEAR-IDNUMBER
+
+- https://nvd.nist.gov/vuln/full-listing
+
+- https://www.exploit-db.com/about-exploit-db
+
+
+
+
+
+follow the steps to exploit 
+
+only test the IP address 240.228.189.136
+
+public service to OSINT target company
+
+d.phantom @ackme.thm
+
+enumerate target
+
+22/tcp ssh
+80/tcp http
+443/tcp https
+
+login page has version number 1.5.2
+
+target uses a portal version number 1.5.2
+search exploit db 
+exploit found & ran is RCE 
+
+
+
+
+
+
+

@@ -1,0 +1,5 @@
+
+# secure network architecture
+
+Subnets seem to solve all problems a network may face
+

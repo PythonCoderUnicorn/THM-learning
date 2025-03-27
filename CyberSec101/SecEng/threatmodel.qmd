@@ -1,0 +1,104 @@
+
+# threat modelling
+
+
+
+features= 
+Registration and Authentication
+User Dashboard
+Search Functionality
+Payment
+
+Sec Eng
+external attacks such as:
+DDoS                          <<<----- dos
+SQL injection attacks
+Brute-forcing of credentials  <<<-----  elev priv
+Enumeration of exposed assets <<<----- info disc
+
+phishing attacks
+
+network eng
+Database servers
+Firewalls
+Mail servers
+File servers
+
+no logging on windows10
+
+
+sys architect
+Amazon EC2 (Elastic Compute Cloud)
+RDS (Relational Database Service)
+Amazon S3
+not used=Elastic Load Balancer to handle traffic distribution
+
+<<< dos
+
+
+
+business analyst
+Personal and financial data
+Secure our transactions processing systems
+Ensure the availability and integrity of our platform
+
+
+
+
+
+
+SQLi = tamp / info disc
+
+insecure AWS = info disc + dos
+
+mail sever no logs = spoofing + repud
+
+Unpatched employee workstations = elev priv / tamp
+
+
+
+
+
+
+
+
+
+threat modelling plan
+
+critical assets and processes 
+  customer's personal and financial data, secure our transactions processing systems, and ensure the availability and integrity of our online banking services.
+
+sys arch
+We utilize Amazon EC2 (Elastic Compute Cloud), RDS (Relational Database Service), and Amazon S3.
+
+Amazon EC2 (Elastic Compute Cloud)
+RDS (Relational Database Service)
+Amazon S3
+We utilize Amazon S3 for storing static assets and files, such as customer profile pictures and document uploads, EC2 for hosting microservices via Virtual Machines, and RDS for storing customer data.
+
+platform include secure user registration and authentication, account management, fund transfers, bill payments, and account statements. 
+
+
+First, external attackers can try to break into our system via different methods such as brute-force attacks, SQL injection, cross-site scripting, or distributed denial of service (DDoS). In addition, insecure AWS configurations, such as exposed public buckets and RDS endpoints, may incur potential risks.
+
+We can implement account lockouts after several failed attempts for brute-force attacks. SQL injections can be mitigated by using secure coding practices. For cross-site scripting, we need to ensure data output is correctly encoded. And to counter DDoS attacks, we can use services that automatically protect against such threats and plan for scaling to handle the increased load. For cloud security, we need to harden all AWS services and limit the accessibility of each one only to the intended data flows.
+
+
+
+1. strategic plan 7
+2. sys arch  2
+3. soft dev  4
+4. info sec   3       /-network infrastruct /- soft dev/ -ceo
+5. strategic plan
+
+no = info sec, soft dev, ceo room, 
+
+
+
+
+
+
+
+
+
+

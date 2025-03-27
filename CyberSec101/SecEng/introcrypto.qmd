@@ -1,0 +1,656 @@
+
+# Introduction to Cryptography
+
+Symmetric encryption, such as AES
+Asymmetric encryption, such as RSA
+Diffie-Hellman Key Exchange
+Hashing
+PKI
+
+
+Caesar cipher
+
+The Caesar Cipher that we have described above can use a key between 1 and 25. With a key of 1, each letter is shifted by one position, where A becomes B, and Z becomes A.
+
+Caesar cipher is considered a substitution cipher because each letter in the alphabet is substituted with another.
+
+
+transposition cipher
+
+“THIS IS ALPHA BRAVO CONTACTING TANGO HOTEL MIKE”, and the key 42351
+The resulting ciphertext “NPCOTGHOTH…”
+
+This task introduced simple substitution and transposition ciphers and applied them to messages made of alphabetic characters. For an encryption algorithm to be considered secure, it should be infeasible to recover the original message,
+
+
+If the encrypted message can be broken in one week, the encryption used would be considered insecure. However, if the encrypted message can be broken in 1 million years, the encryption would be considered practically secure.
+
+For example, we might choose the letters in the alphabet “abcdefghijklmnopqrstuvwxyz” to be mapped to “xpatvrzyjhecsdikbfwunqgmol” respectively. In other words, “a” becomes “x”, “b” becomes “p”, and so on. The recipient needs to know the key, “xpatvrzyjhecsdikbfwunqgmol”, to decrypt the encrypted messages successfully.
+
+In English texts, the most common letters are ‘e’, ‘t’, and ‘a’, as they appear at a frequency of 13%, 9.1%, and 8.2%, respectively.
+
+the most common first letters are ‘t’, ‘a’, and ‘o’, as they appear at 16%, 11.7% and 7.6%, respectively.
+
+
+- https://www.quipqiup.com/
+
+
+
+
+
+
+## Symmetric encryption
+
+
+- `Cryptographic Algorithm or Cipher`: This algorithm defines the encryption and decryption processes.
+
+- `Key`: The cryptographic algorithm needs a key to convert the plaintext into ciphertext and vice versa.
+
+- `plaintext` is the original message that we want to encrypt
+
+- `ciphertext` is the message in its encrypted form
+
+
+A symmetric encryption algorithm uses the same key for encryption and decryption. Consequently, the communicating parties need to agree on a secret key before being able to exchange any messages.
+
+
+
+NIST published the Advanced Encryption Standard (AES) in 2001. Like DES, it is a symmetric encryption algorithm; however, it uses a key size of 128, 192, or 256 bits, and it is still considered secure and in use today. AES repeats the following four transformations multiple times:
+
+
+- `SubBytes(state)`: This transformation looks up each byte in a given substitution table (S-box) and substitutes it with the respective value. The state is 16 bytes, i.e., 128 bits, saved in a 4 by 4 array.
+
+- `ShiftRows(state)`: The second row is shifted by one place, the third row is shifted by two places, and the fourth row is shifted by three places. This is shown in the figure below.
+
+- `MixColumns(state)`: Each column is multiplied by a fixed matrix (4 by 4 array).
+
+- `AddRoundKey(state)`: A round key is added to the state using the XOR operation.
+
+
+Encryption Algorithm
+AES, AES192, and AES256
+IDEA (int'l data encryption algo)
+3DES triple data encryption standard (deprecation 2024)
+CAST5 
+BLOWFISH
+TWOFISH
+CAMELLIA128/192/256  {Mitsubishi Electric and NTT in Japan. flower camellia japonica}
+
+
+
+
+
+All the algorithms mentioned so far are block cipher symmetric encryption algorithms. 
+
+block cipher algorithm converts input (plaintext) into blocks and encrypts each block
+each block is 128 bits
+
+plaintext= "TANGO HOTEL MIKE" (16 characters)
+
+step 1: 
+represent message in binary 
+"T" => 0x54 ... "A" => 0x41 ... 
+every 2 hex digits = 8 bits = 1 byte
+a block of 128 bits = 16 bytes (4x4 matrix)
+128 bit is 1 unit 
+
+
+```{python}
+# string to ASCII hexadecimal converter
+def str_to_hex(str1):
+  hex_str = ''
+  for i in range(len(str1)):
+    hex_str += str(hex(ord(str1[i]))[2:]).upper()
+  return hex_str
+
+str1 = input("Enter a string: ")
+print("The hexadecimal representation of the string is:\n", str_to_hex(str1))
+```
+
+TANGO => 54 41 4E 47 4F
+HOTEL => 48 4F 54 45 4C
+MIKE =>  4D 49 4B 45
+
+https://www.lookuptables.com/text/ascii-table
+
+Cipher text = 6B 6C DA 1C FB ...
+
+
+many programs available for symmetric encryption widely used for asymmetric encryption as well:
+
+GNU Privacy Guard
+OpenSSL Project
+
+
+
+### GNU Privacy Guard (OpenPGP)
+
+ENCRYPT a file using GPG: `gpg --symmetric --cipher-algo CIPHER message.txt`
+
+encryption: cipher-algo
+encrypted file: message.txt.gpg
+
+if you prefer to create an ASCII armoured output, which can be opened in any text editor
+
+- `gpg --armor --symmetric --cipher-algo CIPHER message.txt`
+
+
+DECRYPT a file: `gpg --output original_message.txt --decrypt message.gpg`
+
+
+
+### OpenSSL project
+
+ENCRYPT a file: `openssl aes-256-cbc -e -in message.txt -out encrypted_message`
+
+DECRYPT a file: `openssl aes-256-cbc -d -in encrypted_message -out original_message.txt`
+
+to make encryption secure against brute-force attacks add `-pbkdf2` Password Based Key Derivation Function 2
+with the number of iterations `-iter NUMBER`
+
+- encrypt: `openssl aes-256-cbc -pbkdf2 -iter 10000 -e -in message.txt -out encrypted_message`
+- decrypt: `openssl aes-256-cbc -pbkdf2 -iter 10000 -d -in encrypted_message -out original_message.txt`
+
+
+https://www.feistyduck.com/library/openssl-cookbook/online/
+
+
+---
+files for this task are located under /root/Rooms/cryptographyintro/task02
+unzip folder
+files are quote01.txt.gpg and key.pem
+
+Decrypt the file quote01 encrypted (using AES256) with the key s!kR3T55 using gpg. 
+What is the third word in the file?
+
+gpg --output original.txt --decrypt quote01.txt.gpg 
+then enter key in popup s!kR3T55
+
+
+
+Decrypt the file quote02 encrypted (using AES256-CBC) with the key s!kR3T55 using openssl. What is the third word in the file?
+
+openssl aes-256-cbc -d -in quote02 -out q2.txt
+
+
+Decrypt the file quote03 encrypted (using CAMELLIA256) with the key s!kR3T55 using gpg. What is the third word in the file?
+
+- gpg
+- camellia-256-cbc
+- gpg --output original.txt --decrypt quote01.txt.gpg 
+
+
+
+
+
+
+
+
+
+
+
+
+
+## asymmetric encryption
+
+Symmetric encryption requires the users to find a secure channel to exchange keys.
+- confidentiality
+- integrity
+
+Asymmetric encryption makes it possible to exchange encrypted messages without a secure channel
+just need a reliable one (integrity)
+
+symmetric encryption algorithm, we would generate a key pair: a public key and a private key.
+
+- If Alice encrypts a message using Bob’s public key, it can be decrypted only using Bob’s private key
+- If Bob encrypts a message using his private key, it can be decypted only using Bob's public key
+
+
+Bob wants to send message (integrity, authenticity, nonrepudiation)
+Bob encrypts message using private key
+recipients of Bob's message decrypt it using Bob's public key (message integrity, authenticity: Bob's private key + nonrepudiation {can't deny sending it})
+
+
+
+
+## RSA
+
+RSA got its name from its inventors, Rivest, Shamir, and Adleman.
+
+RSA security relies on factorization being a hard problem. It is easy to multiply p by q; however, it is time-consuming to find p and q given N
+
+- to be secure, p and q should be pretty large numbers
+- 1024 bits = 300 digits
+
+Simple RSA
+
+```{python}
+# simple RSA
+p = int(input("Enter p: ")) # 157
+q = int(input("Enter q: ")) # 199
+
+N = p * q 
+theta = N - p - q
+
+print(f"N = {N}")
+print(f"theta = {theta}")
+
+e = int(input("Enter e: ")) # 163
+d = int(input("Enter d: ")) # 379
+
+theta2 = e * d 
+theta3 = theta2 % theta
+print(f"Theta mod= {theta3}") # 1
+
+print(f"Public key= ({N},{e})")
+print(f"Private key= ({N},{d})")
+
+#--------  to encrypt
+x = 13
+n = (x**e) % N
+print(f"\nencrypt n = {n}") # 16342
+
+#  to decrypt
+y = (n**d) % N
+print(f"decrypt n = {y}") # 13
+```
+
+
+
+### Real RSA (.pem)
+
+- MAKE PRIVATE KEY (2048 bits): `openssl genrsa -out private-key.pem 2048` 
+- GET PUBLIC KEY: `openssl rsa -in private-key.pem -pubout -out public-key.pem`
+
+view rsa: 
+- cat public-key.pem
+- `openssl rsa -in private-key.pem -text -noout`
+
+RSA values:
+- p = prime1
+- q = prime2
+- N = modulus
+- e = publicExponent
+- d = privateExponent
+
+IF you have a public key:
+- encrypt it  `openssl pkeyutl -encrypt -in plaintext.txt -out ciphertext -inkey publick-key.pem -pubin`
+- decrypt it `openssl pkeyutl -decrypt -in ciphertext -inkey private-key.pem -out decrypted.txt`
+
+
+
+---
+directory `/root/Rooms/cryptographyintro/task03` 
+alternatively, you can use the task file from Task 2 to work on your own machine
+Bob has received the file `ciphertext_message` sent to him from Alice. You can find the key you need in the same folder. What is the first word of the original plaintext?
+
+hint= Decrypt with Bob’s private key.
+
+- private-key-bob.pem, public-key-bob.pem, ciphertext_message
+- we have public key, decrypt : openssl pkeyutil -decrypt -in ciphertext_message -inkey private-key-bob.pem -out bob.txt
+  
+
+
+Take a look at Bob’s private RSA key. What is the last byte of p?
+
+hint= p is prime1. The answer should be two hexadecimal digits.
+
+- `openssl rsa -in private-key-bob.pem -text -noout`
+- prime1 last byte = e7 
+
+
+Take a look at Bob’s private RSA key. What is the last byte of q?
+
+hint = q is prime2. The answer should be two hexadecimal digits.
+- `openssl rsa -in private-key-bob.pem -text -noout`
+- 27
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+Generate an OpenSSL RSA private and public key 
+
+nano message.txt
+openssl genrsa -out private-veggies.pem 2048
+openssl rsa -pubout -in private-veggies.pem -out public-veggies.pem
+
+openssl pkeyutl -encrypt -in message.txt  -out encrypted_message.txt -inkey public-veggies.pem  -pubin
+
+cat encrypted_message.txt 
+
+openssl pkeyutl -decrypt -in encrypted_message.txt -inkey private-veggies.pem  -out decrypted-veggies.txt
+
+cat decrypted-veggies.txt 
+```
+
+
+
+
+GNU privacy guard (GPG)
+
+1. nano message.txt
+2. generate key pair: gpg --gen-key
+   
+   speedo veggies
+   veggies @ example.com
+   password: !chop/dice*
+
+gpg --list-keys
+gpg --export -a speedo > public-key.asc  {send this to recipient}
+3. encrypt message:  gpg -r <firstName> -o cipher.txt.gpg -e message.txt 
+4. send encrypted message
+5. decrypt message w/ public key: gpg -o decrypted.txt -d cipher.txt
+
+nano mon.txt
+gpg -r speedo -o cipher.txt.gpg -a -e mon.txt
+gpg -o decrypted.txt -d cipher.txt.gpg
+
+
+
+send person public-key.asc
+gpg --import public-key.asc
+gpg -d cipher.txt.gpg
+
+
+syntax: gpg [options] [file]
+
+commands
+-e 
+-d 
+-r 
+-o output file
+-k list keys
+-a create ASCII armored output
+--openpgp
+
+
+
+
+
+
+
+
+
+
+
+## Diffie-Hellman key exchange
+
+Diffie-Hellman is an asymmetric encryption algorithm. 
+It allows the exchange of a secret over a public channel. 
+x**p * p
+x % m
+
+
+Alice & Bob agree on q,g
+Alice selects 'a' < q
+Bob selects b < q 
+
+```{python}
+
+q = 29 # prime number
+g = 3 # generator
+# a < q , a must be secret, A is sent to Bob
+a = 13
+A = (g**a) % q # secret! 19 
+# A
+
+# b < q , b must be secret, B is sent to Alice
+b = 15 
+B = (g**b) % q  # secret! 26
+# B
+
+# alice gets B
+alice_key = (B**a)%q    # 26^13 % 29
+print(alice_key) # 10   # 19^15 % 29
+
+# bob gets A
+bob_key = (A**b)%q
+print(bob_key) # 10
+
+
+```
+
+Although an eavesdropper has learned the values of q, g, A, and B, they won’t be able to calculate the secret key that Alice and Bob have exchanged.
+
+the numbers we have chosen make it easy to find a and b
+real-world examples would select a q of 256 bits in length --  that’s 115 with 75 zeroes to its right
+
+Such a large q will make it infeasible to find a or b despite knowledge of q, g, A, and B.
+
+- this key exchange is prone to a Man-in-the-Middle (MitM) attacks, attacker could pretend to be Alice or Bob
+
+openssl dhparam 2048bits or 4096bits
+
+openssl dhparam -in dhparams.pem -text -noout
+
+
+
+
+
+
+
+
+
+## Hashing
+
+A cryptographic hash function is an algorithm that takes data of arbitrary size as its input and returns a fixed size value, called message digest or checksum, as its output
+
+the checksum is same length regardless of file size
+
+any change to the file results in a new checksum
+
+
+
+in the terminal: 
+
+| text1.txt has T         | text2.txt has t     |
+|-------------------------|---------------------|
+| `hexdump text1.txt`     | `hexdump text2.txt` |
+| 0000000 0054            | 0000000 0074        |
+| 0000001                 | 0000001             |
+
+
+- Linux: sha256sum text1.txt 
+- Mac: shasum -a 256 text1.txt
+- Mac: `openssl sha256 <file>`
+
+
+HMAC
+
+Hash-based message authentication code (HMAC) is a message authentication code (MAC) that uses a cryptographic key in addition to a hash function.
+
+for a HMAC you need:
+
+- secret key
+- inner pad {ipad} a constant string `0x36` byte, value of B depends on hash function
+- outer pad (opad) a constant string 0x5C repeated B times
+
+HMAC steps
+
+1. append zeroes to the key to make it of length B (match ipad length)
+2. using bitwise exclusive OR (XOR) to calculate key XOR ipad
+3. append the message to the XOR output from step 2
+4. apply the hash function to the resulting stream of bytes (step 3)
+5. using XOR calculate key XOR opad
+6. append the hash function output from step 4 to the XOR output from step 5
+7. apply the hash function to the resulting stream of bytes (step 6) to get the HMAC
+
+
+
+To calculate the HMAC on a Linux system, you can use any of the available tools such as hmac256 (sha224hmac, sha256hmac, sha384hmac)
+
+the secret key is added --key
+
+
+| hmac256        | pad             |   command                           |
+|----------------|-----------------|-------------------------------------|
+| hmac256        | s!Kr37          | hmac 256 s!Kr37 message.txt         |
+| sha256hmac     | --key s!Kr37    | sha256mac message.txt --key s!Kr37  |
+
+
+
+`/root/Rooms/cryptographyintro/task05`
+What is the SHA256 checksum of the file order.json?
+
+- sha256sum order.json
+- 2c34b68669427d15f76a1c06ab941e3e6038dacdfb9209455c87519a3ef2c660
+
+Open the file order.json and change the amount from 1000 to 9000. What is the new SHA256 checksum?
+
+- nano order.json
+- sha256sum order.json
+- 11faeec5edc2a2bad82ab116bbe4df0f4bc6edd96adac7150bb4e6364a238466
+
+
+
+Using SHA256 and the key 3RfDFz82, what is the HMAC of order.txt?
+
+- hmac256 3RfDFz82 order.txt 
+- c7e4de386a09ef970300243a70a444ee2a4ca62413aeaeb7097d43d2c5fac89f 
+
+
+
+
+
+
+
+## PKI & SSL/TLS
+
+
+Using a key exchange such as the Diffie-Hellman key exchange allows us to agree on a secret key under the eyes and ears of eavesdroppers but is at risk for MITM attack
+
+Alice does not know for sure she is talking to Bob, same for Bob with Alice
+
+MITM for key Diffie-Hellman key exchange
+
+1. Alice & Bob agree on `q` and `g`, attacker Mallory sees this (normal)
+2. Alice chooses random variable `a`, calculates `A = (g^a) % q`, sends Bob the `A`
+   but Mallory selects random variable `m` and calculates `M` and sends Bob `M` {as Alice}
+3. Bob has `M`, picks random variable `b` and calculates `B`, sends `B` to Alice but Mallory grabs it and sends `M` to Alice
+4. Alice gets `M` and calculates key `key = (M^a) % q`
+5. Bob gets `M` and calculates key `key = (M^b) % q`
+
+Mallory gets all of their messages
+
+
+PKI = public key infrastructure 
+
+browser HTTPS lock certificate = ensure you are communicating with proper website
+
+
+For a certificate to get signed by a certificate authority, we need to:
+
+- Generate Certificate Signing Request (CSR): You create a certificate and send your public key to be signed by a third party.
+- Send your CSR to a Certificate Authority (CA): The purpose is for the CA to sign your certificate. The alternative and usually insecure solution would be to self-sign your certificate.
+
+
+generate a certificate using openssl for 3rd party signing:
+- `openssl req -new -nodes -newkey rsa:4096 -keyout key.pem -out cert.csr`
+- `req -new` create a new certificate signing request
+- `-nodes save` private key without a passphrase
+- `-newkey` generate a new private key
+- `rsa:4096` generate an RSA key of size 4096 bits
+- `-keyout` specify where to save the key
+- `-out` save the certificate signing request
+
+answer questions: UK, London, London
+
+generate a certficate for self signing:
+- `openssl req -x509 -newkey -nodes rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365`
+- `-x509` self signed certificate request
+- `-sha256` SHA256 digest
+- `-days 365` valid for 1 year
+
+to view a certificate:
+- `openssl x509 -in cert.pem -text`
+
+
+```
+# inspect certificate file `cert.pem` in `task06` folder
+
+# What is the size of the public key in bits?
+
+# hint= openssl x509 -in cert.pem -text | less
+4096
+
+# until which year is this certificate valid?
+2039
+
+```
+
+
+
+
+
+
+
+
+
+
+
+## auth w/ passwords
+
+- `md5 -s qwerty`
+- `alice:qwerty` md5sum password = `d8578edf8458ce06fbc5bb76a58c5ca4`
+- `bob:dragon`   md5sum password = `8621ffdbc5698829397d97767ac13db3`
+
+A rainbow table contains a list of passwords along with their hash value
+
+to save passwords securely we can add salt. 
+A salt is a random value we can append to the password before hashing it.
+
+syntax: password + salt 
+
+- `alice:qwerty` md5sum password + salt (12742) = `8a43db01d06107fcad32f0bcfa651f2f`
+- `bob:dragon` md5sum password + salt (22861) = `aab2b680e6a1cb43c79180b3d1a38beb`
+
+- *for actual security need better hash function and larger salt*
+
+
+md5 cracking tools:
+https://www.md5online.org/md5-decrypt.html or https://md5decrypt.net/en/
+
+`hashcat -m 0 -a 0 md5.txt rockyou.txt`
+hash: `3fc0a7acf087f549ac2b266baf94b8b1`
+password: qwerty123
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##
+

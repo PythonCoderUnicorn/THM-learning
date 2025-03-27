@@ -1,0 +1,68 @@
+
+# vulnerability management
+
+
+vulnerability is defined as "A weakness in an information system, system security procedures, internal controls, or implementation that could be exploited or triggered by a threat source". 
+
+There are numerous public sites with information on vulnerabilities; however, the National Vulnerability Database (NVD) administered by NIST is a comprehensive database of CVE-assigned known vulnerabilities.
+
+
+Common Configuration Enumeration (CCE): A CCE gives system configuration issues unique identifiers to quickly and accurately link configuration data from different information sources and tools. 
+
+
+Common Platform Enumeration (CPE): CPE is a method for classifying and identifying devices, operating systems (OS), and application types inside an infrastructure. 
+
+
+Common Vulnerability Scoring System (CVSS): CVSS is a scoring system that rates the severity of vulnerabilities and identifies their characteristics. It assigns severity scores to all defined vulnerabilities, which is used to prioritise mitigation efforts and the required resources based on the severity. The range of possible scores is 0 to 10, with 10 representing the most severe.
+
+https://www.cvedetails.com/
+
+
+
+
+Ubuntu as a test machine and Greenbone Community Edition (GCE) 
+scanning a Windows machine hosting  web app XAMPP
+scan report of Ubuntu machine
+
+```{}
+# step 1
+`10.10.36.38:9392`
+`admin:admin`
+
+Scans > tasks > add new task > add new target 
+windows-task: 
+windows
+`10.10.183.198`
+
+Scans > reports > click on Windows-task data > results
+```
+
+step 2 - prioritize
+step 3 - assess
+~php
+173 results, 2 low 
+
+step 4 - reporting
+product detection result
+php buffer overflow
+
+
+https://simontaplin.net/2023/07/01/answers-for-the-tryhackme-vulnerability-management-room/
+
+
+
+
+
+Vuln Mgmnt life cycle 
+
+1. discover = make list of all resources/assets
+2. prioritize
+3. assess
+4. report
+5. remediate
+6. verify
+
+
+
+
+
